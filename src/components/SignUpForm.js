@@ -7,13 +7,13 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [captcha, setCaptcha] = useState("");
   const [genratedcaptcha, setGenratedCaptcha] = useState("");
-  const [errorText, setErrorText] = useState("");
-  const [successText, setSuccessText] = useState("");
+  const [errorText, setErrorText] = useState();
+  const [successText, setSuccessText] = useState();
 
   function generateString(length) {
     let characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = " ";
+    let result = "";
     let charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -33,16 +33,14 @@ const SignUpForm = () => {
     console.log(genratedcaptcha, "::::", captcha);
     console.log(genratedcaptcha.localeCompare(captcha));
 
-    if (`${genratedcaptcha}` != `${captcha}`)
+    if (genratedcaptcha != captcha)
       return setErrorText("Please Enter Valid Captcha");
-
-    // if (genratedcaptcha.localeCompare(captcha) != 0)
-    //   return setErrorText("Please Enter Valid Captcha");
 
     setSuccessText("SignUp Done SuccessFully");
     setEmail("");
     setPassword("");
     setCaptcha("");
+    setErrorText();
   };
 
   return (
@@ -93,7 +91,7 @@ const SignUpForm = () => {
           </div>
         </div>
 
-        {errorText && <p className="errorText">{errorText}</p>}
+        {errorText && !successText && <p className="errorText">{errorText}</p>}
         <button
           className="btn-signUp"
           onClick={() => {
@@ -102,7 +100,9 @@ const SignUpForm = () => {
         >
           SignUp
         </button>
-        {successText && <p className="successText">{errorText}</p>}
+        {successText && !errorText && (
+          <p className="successText">{successText}</p>
+        )}
       </div>
     </div>
   );
