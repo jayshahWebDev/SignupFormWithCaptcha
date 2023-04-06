@@ -30,13 +30,11 @@ const SignUpForm = () => {
     if (!email || !password || !captcha)
       return setErrorText("All Field Are Required");
 
-    console.log(genratedcaptcha, "::::", captcha);
-    console.log(genratedcaptcha.localeCompare(captcha));
-
     if (genratedcaptcha != captcha)
       return setErrorText("Please Enter Valid Captcha");
 
     setSuccessText("SignUp Done SuccessFully");
+    generateString(6);
     setEmail("");
     setPassword("");
     setCaptcha("");
